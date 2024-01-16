@@ -1,0 +1,72 @@
+desc countries
+desc regions;
+
+select region_name
+from regions;
+
+desc locations;
+desc employees;
+desc departments;
+
+select location_id
+from locations;
+
+--Natural Join
+select country_name,country_id,region_id,region_name
+From countries
+Natural Join regions;
+
+--Using clause
+select country_name,country_id,region_id,region_name
+From countries
+Join regions
+using (region_id);
+
+--On clause
+
+
+--self join
+select e.employee_id,e.last_name,e.first_name,e.manager_id,m.employee_id,m.last_name,m.first_name
+from employees e
+join employees m
+on(e.manager_id=m.employee_id);
+
+create table shop_details 
+(
+Items char(10),
+Quantity number(5,2),
+Price_of_each number(5,2));
+
+alter table shop_details
+Add constraint Items_cons primary key (Items);
+
+Insert into shop_details values('Bingo',100,10.00);
+Insert into shop_details values('KitKat',50,30.00);
+Insert into shop_details values('Dhal',100.55,55.49);
+Insert into shop_details values('Rice',100,70.27);
+Insert into shop_details values('Box',10,140);
+
+savepoint s1;
+rollback to s1;
+commit;
+delete from shop_details;
+truncate table shop_details;
+drop table shop_details;
+flashback table hr.shop_details to before drop;
+select * from shop_details;
+select Items from shop_details where Quantity>10 and price_of_each<100;
+create view itemio
+as select Quantity from shop_details where price_of_each between 20 and 70;
+select * from itemio;
+describe itemio;
+update shop_details
+set price_of_each=(select price_of_each from shop_details where items='Bingo')where items='KitKat';
+
+
+
+
+
+
+
+
+

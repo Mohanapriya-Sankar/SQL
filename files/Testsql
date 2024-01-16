@@ -1,0 +1,47 @@
+select *from employees;
+--1.
+select * from employees where job_id like '%CLERK'  and  to_char(hire_date,'YYYY')>1997;
+
+--2.
+select last_name,job_id,salary,commission_pct from employees where commission_pct<>0 order by salary desc;
+
+--3.
+select last_name,salary,round(salary+(0.1*salary),1)as New_salary from employees where commission_pct between 0.1 and 0.9; 
+--4.
+--5.
+select last_name from employees where last_name like in('J%','K%','L%','M%'); 
+--6.
+select last_name,salary,
+case commission_pct when 0.1 then 'Yes'
+                    when 0.2 then 'Yes'
+                    when 0.3 then 'Yes'
+                    when 0.4 then 'Yes'
+                    when 0.5 then 'Yes'
+                    when 0.6 then 'Yes'
+                    when 0.7 then 'Yes'
+                    when 0.8 then 'Yes'
+                    when 0.9 then 'Yes'
+else 'No'
+End Commission
+from employees;
+
+--7.
+select location_id,last_name,salary,department_name,job_id
+from employees e 
+join departments d using(department_id)
+join locations l using(location_id)
+where location_id=&id;
+
+--8.
+select count(*) from employees where last_name like '%n'; 
+--9.
+--10.
+select job_id from employees where department_id in (10,20);
+--11.
+select job_id  from employees e join departments d using(department_id)where department_name in('Administration','Executive');
+--13.
+select last_name,salary,round(salary,-2)as Thousands from employees;
+
+--
+
+
